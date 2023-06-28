@@ -1,0 +1,28 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Laboratorio14.DataContext
+{
+	public class AppDbContext: DbContext
+	{
+        //Path donde se va guardar la base de datos
+        string DbPath = string.Empty;
+
+
+        //Tablas de base de datos
+		public DbSet<Product> Products { get; set; }
+
+        public AppDbContext(string dbPath)
+		{
+			this.DbPath = dbPath;
+		}
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite($"Filename={DbPath}");
+        }
+    }
+}
+
